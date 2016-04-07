@@ -9964,7 +9964,6 @@ Elm.Main.make = function (_elm) {
    _elm.Main = _elm.Main || {};
    if (_elm.Main.values) return _elm.Main.values;
    var _U = Elm.Native.Utils.make(_elm),
-   $Array = Elm.Array.make(_elm),
    $Basics = Elm.Basics.make(_elm),
    $Debug = Elm.Debug.make(_elm),
    $Html = Elm.Html.make(_elm),
@@ -9974,6 +9973,14 @@ Elm.Main.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $String = Elm.String.make(_elm);
    var _op = {};
-   var main = $Html.text(A2($String.join,", ",$Array.toList(A2($Array.map,$Basics.toString,A2($Array.initialize,4,$Basics.identity)))));
-   return _elm.Main.values = {_op: _op,main: main};
+   var text_for_num = function (inputVal) {
+      return _U.eq(A2($Basics._op["%"],inputVal,5),0) && _U.eq(A2($Basics._op["%"],inputVal,3),0) ? A2($Basics._op["++"],
+      $Basics.toString(inputVal),
+      " FizzBuzz") : _U.eq(A2($Basics._op["%"],inputVal,5),0) ? A2($Basics._op["++"],$Basics.toString(inputVal)," Fizz") : _U.eq(A2($Basics._op["%"],
+      inputVal,
+      3),
+      0) ? A2($Basics._op["++"],$Basics.toString(inputVal)," Buzz") : A2($Basics._op["++"],$Basics.toString(inputVal)," ____");
+   };
+   var main = $Html.text(A2($String.join,", ",A2($List.map,text_for_num,_U.range(0,20))));
+   return _elm.Main.values = {_op: _op,text_for_num: text_for_num,main: main};
 };</script></head><body><script type="text/javascript">Elm.fullscreen(Elm.Main)</script></body></html>
